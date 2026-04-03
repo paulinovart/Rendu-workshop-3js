@@ -12,7 +12,8 @@ const scene = new THREE.Scene();
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2(1, 1);
 let oldHoverObject = null;
-let clilckedObject = null;
+let clickedObject = null;
+
 
 const viewport = {
   width: window.innerWidth,
@@ -22,15 +23,16 @@ const viewport = {
 const camera = new THREE.PerspectiveCamera(
   45,
   viewport.width / viewport.height,
-  0.1,
-  1000
+  1e-6,
+  1e27
 );
 
+let cameraPosition = new THREE.Vector3();
 camera.position.set(0, 20, 20);
 camera.lookAt(0, 0, 0);
 
 //state
-let controls, renderer, whiteCircle, baseScale;
+let controls, renderer, whiteCircle, baseScale,circlePoint, planetPoint;
 let planets = [];
 let whiteCircles = [];
 let objects = [];
@@ -39,13 +41,12 @@ async function init() {
   initRenderer();
   initControls();
   initScene();
-  //initHelpers();
+  initHelpers();
 
   window.onresize = onWindowResize;
   window.addEventListener("mousemove", onMouseMove);
   window.addEventListener("click", onClick)
 
- 
 }
 
 function onMouseMove(event) {
@@ -68,8 +69,10 @@ function onMouseMove(event) {
 
 
 function onClick() {
+  // set lers variables position base cam et target (lookat)
+  //set la variable de destination 
 
-
+//au click un lerp qui fonctionne avec la position de départ de la cam
   raycaster.setFromCamera(mouse, camera);
 
   const intersection = raycaster.intersectObjects(whiteCircles);
@@ -78,10 +81,22 @@ function onClick() {
  whiteCircles.forEach((object)=> (object.name =""));
 
 if (intersection.length){
-clilckedObject = intersection[0].object
-console.log("je clique sur un objet")
-clilckedObject.name="active";
+clickedObject = intersection[0].object
+camera.position.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z+0.003 )
+controls.target.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z);
+console.log("je clique sur : ", clickedObject)
+clickedObject.name="active";
+
+}else {
+  camera.position.set(0, 20, 20);
+  controls.target.set(0, 0, 0);
+
 }
+
+
+
+
+
 
  // if (intersection[0].object) {
   //  console.log("je clique sur un objet")
@@ -246,7 +261,8 @@ ORBITES TRY FOR EACH
       0
     );
 
-    const circlePoint = curve.getPoint(orbit.p);
+    circlePoint = curve.getPoint(orbit.p);
+    circlePoint.push;
 
     //création des orbites
 
@@ -269,7 +285,10 @@ ORBITES TRY FOR EACH
       color: orbit.color,
     });
     const planet = new THREE.Mesh(planetGeometry, planetMaterial);
-    planet.position.set(circlePoint.x, 0, circlePoint.y);
+    planetPoint = { x: circlePoint.x, y: circlePoint.y };
+    planetPoint.push;
+    console.log(planetPoint, "planetPoint");
+    planet.position.set(planetPoint.x, 0, planetPoint.y);
     scene.add(planet);
     console.log("planète crée : ", orbit.nom);
 
@@ -280,6 +299,7 @@ ORBITES TRY FOR EACH
 
     whiteCircle.position.set(circlePoint.x, 0, circlePoint.y);
     scene.add(whiteCircle);
+    whiteCircle.userData.planet = planet;
     orbit.sprite = whiteCircle;
     whiteCircles.push(whiteCircle);
 
@@ -322,11 +342,6 @@ function onWindowResize() {
 }
 
 
-
-
-
-//console.log(whiteCircles);
-
 function animate() {
   // adapter la taille du sprite selon la distance caméra
   planets.forEach((orbit) => {
@@ -336,8 +351,11 @@ function animate() {
     //console.log(baseScale, orbit.nom);
 
     if (orbit.sprite.name === "active"){
-      console.log("active");
-      
+      //console.log(planetPoint);
+      //camera.position.set (targetPlanet.position.x - 10, targetPlanet.position.y , targetPlanet.position.z - 5);
+      //console.log(targetPlanet);
+      //console.log(orbit.nom,"active");
+      //console.log(orbit);
       orbit.sprite.scale.set(baseScale * 2, baseScale * 2, 1);
     } else if (orbit.sprite === oldHoverObject){
       orbit.sprite.scale.set(baseScale * 2, baseScale * 2, 1);
@@ -351,7 +369,6 @@ function animate() {
 
   });
 
-  //hover avec le raycaster
 
   controls.update();
   renderer.render(scene, camera);
