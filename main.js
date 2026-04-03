@@ -4,7 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DragControls } from "three/addons/controls/DragControls.js";
-import { texture } from "three/tsl";
+import { roughness, texture } from "three/tsl";
 
 //scene
 
@@ -27,6 +27,19 @@ const camera = new THREE.PerspectiveCamera(
   1e-6,
   1e27
 );
+const sunLightColor = 0xFFFFFF;
+const sunIntensity = 150;
+const sunLight = new THREE.PointLight(sunLightColor, sunIntensity);
+scene.add(sunLight);
+
+
+const color = 0xFFFFFF;
+const intensity = 0.5;
+const light = new THREE.AmbientLight(color, intensity);
+scene.add(light);
+
+
+
 
 let cameraPosition = new THREE.Vector3();
 camera.position.set(0, 20, 20);
@@ -157,7 +170,8 @@ ORBITES TRY FOR EACH
       color: 0xb78668,
       p: 0.1,
       planetRadius: 0.00005,
-      textureLink : "textures/mercury.jpeg",
+      baseColor : "textures/mercury.jpg",
+      roughness : "texture/mercury-r.jpg",
     },
 
     {
@@ -167,7 +181,8 @@ ORBITES TRY FOR EACH
       color: 0xf4bebe,
       p: 0.2,
       planetRadius: 0.00012,
-       textureLink : "textures/venus.jpeg",
+       baseColor : "textures/venus.jpg",
+       roughness : "texture/venus-r.jpg",
     },
 
     {
@@ -177,7 +192,8 @@ ORBITES TRY FOR EACH
       color: 0x67bc5e,
       p: 0.7,
       planetRadius: 0.00013,
-       textureLink : "textures/earth.jpeg",
+      baseColor : "textures/earth.jpg",
+      roughness : "texture/earth-r.jpg",
     },
 
     /*{
@@ -193,7 +209,8 @@ ORBITES TRY FOR EACH
       //color : "linear-gradient(267deg,rgba(221, 69, 48, 0.69) 0%, rgba(221, 69, 48, 0) 100%)",
       p: 1,
       planetRadius: 0.00007,
-       textureLink : "textures/mars.jpeg",
+       baseColor : "textures/mars.jpg",
+       roughness : "texture/mars-r.jpg",
     },
     {
       nom: "Jupiter",
@@ -202,7 +219,7 @@ ORBITES TRY FOR EACH
       color: 0xf9d3c0,
       p: 0.4,
       planetRadius: 0.00143,
-       textureLink : "textures/jupiter.jpeg",
+       baseColor : "textures/jupiter.jpeg",
     },
     {
       nom: "Saturn",
@@ -211,7 +228,7 @@ ORBITES TRY FOR EACH
       color: 0xffe577,
       p: 0.8,
       planetRadius: 0.0012,
-       textureLink : "textures/saturn.jpeg",
+       baseColor : "textures/saturn.jpeg",
 
     },
     {
@@ -221,7 +238,7 @@ ORBITES TRY FOR EACH
       color: 0x57a0ff,
       p: 0,
       planetRadius: 0.00051,
-       textureLink : "textures/uranus.jpeg",
+       baseColor : "textures/uranus.jpeg",
     },
     {
       nom: "Neptune",
@@ -230,7 +247,7 @@ ORBITES TRY FOR EACH
       color: 0x2948bf,
       p: 0.5,
       planetRadius: 0.00049,
-      textureLink : "textures/neptune.jpeg",
+      baseColor : "textures/neptune.jpeg",
     },
   ];
 
@@ -259,7 +276,7 @@ ORBITES TRY FOR EACH
 
     orbit.curve = curve;
 
-    const points = curve.getPoints(50);
+    const points = curve.getPoints(100);
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const material = new THREE.LineBasicMaterial({ color: orbit.color });
 
@@ -272,16 +289,19 @@ ORBITES TRY FOR EACH
     //création des planetes
 
     const texloader = new THREE.TextureLoader();
-    const planetTexture = texloader.load(orbit.textureLink);
-    //console.log(orbit.textureLink);
+    const planetTexture = texloader.load(orbit.baseColor);
+    const planetTextureRoughness = texloader.load(orbit.roughness);
+    //console.log(orbit.baseColor);
     planetTexture.colorSpace = THREE.SRGBColorSpace;
 
 
     const planetGeometry = new THREE.SphereGeometry(orbit.planetRadius, 32, 16); // augmenter
     //const planetGeometry = new THREE.SphereGeometry(20,32,16);
-    const planetMaterial = new THREE.MeshBasicMaterial({
+    const planetMaterial = new THREE.MeshPhysicalMaterial({
       //color: orbit.color,
       map: planetTexture,
+      roughnessMap : planetTextureRoughness ,
+      // normalmap => fausser des reliefs
       
     });
 
