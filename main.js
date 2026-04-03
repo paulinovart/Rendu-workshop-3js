@@ -41,7 +41,7 @@ async function init() {
   initRenderer();
   initControls();
   initScene();
-  initHelpers();
+  //initHelpers();
 
   window.onresize = onWindowResize;
   window.addEventListener("mousemove", onMouseMove);
@@ -92,27 +92,7 @@ clickedObject.name="active";
   controls.target.set(0, 0, 0);
 
 }
-
-
-
-
-
-
- // if (intersection[0].object) {
-  //  console.log("je clique sur un objet")
-    //intersection[0].object.name = "active";
-  //} else {
-   // console.log("clic vide")
-    //intersection.object.name = "null";
-  //}
-  
-
-  // si on clic à coté, on reset tt les names à vide
-  
-  //console.log("hello, je suis un clic");
-  //console.log({ x: mouse.x, y: mouse.y });
 }
-
 
 
 
@@ -175,6 +155,7 @@ ORBITES TRY FOR EACH
       color: 0xb78668,
       p: 0.1,
       planetRadius: 0.00005,
+      textureLink : "textures/mercury.jpeg",
     },
 
     {
@@ -184,6 +165,7 @@ ORBITES TRY FOR EACH
       color: 0xf4bebe,
       p: 0.2,
       planetRadius: 0.00012,
+       textureLink : "textures/venus.jpeg",
     },
 
     {
@@ -193,6 +175,7 @@ ORBITES TRY FOR EACH
       color: 0x67bc5e,
       p: 0.7,
       planetRadius: 0.00013,
+       textureLink : "textures/earth.jpeg",
     },
 
     /*{
@@ -208,6 +191,7 @@ ORBITES TRY FOR EACH
       //color : "linear-gradient(267deg,rgba(221, 69, 48, 0.69) 0%, rgba(221, 69, 48, 0) 100%)",
       p: 1,
       planetRadius: 0.00007,
+       textureLink : "textures/mars.jpeg",
     },
     {
       nom: "Jupiter",
@@ -216,6 +200,7 @@ ORBITES TRY FOR EACH
       color: 0xf9d3c0,
       p: 0.4,
       planetRadius: 0.00143,
+       textureLink : "textures/jupiter.jpeg",
     },
     {
       nom: "Saturn",
@@ -224,6 +209,8 @@ ORBITES TRY FOR EACH
       color: 0xffe577,
       p: 0.8,
       planetRadius: 0.0012,
+       textureLink : "textures/saturn.jpeg",
+
     },
     {
       nom: "Uranus",
@@ -232,6 +219,7 @@ ORBITES TRY FOR EACH
       color: 0x57a0ff,
       p: 0,
       planetRadius: 0.00051,
+       textureLink : "textures/uranus.jpeg",
     },
     {
       nom: "Neptune",
@@ -240,6 +228,7 @@ ORBITES TRY FOR EACH
       color: 0x2948bf,
       p: 0.5,
       planetRadius: 0.00049,
+      textureLink : "textures/neptune.jpeg",
     },
   ];
 
@@ -272,6 +261,7 @@ ORBITES TRY FOR EACH
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
     const material = new THREE.LineBasicMaterial({ color: orbit.color });
 
+
     const ellipse = new THREE.Line(geometry, material);
     ellipse.rotation.x = -Math.PI / 2;
     scene.add(ellipse);
@@ -279,11 +269,22 @@ ORBITES TRY FOR EACH
 
     //création des planetes
 
-    const planetGeometry = new THREE.SphereGeometry(orbit.planetRadius, 32, 16);
+    const texloader = new THREE.TextureLoader();
+    const planetTexture = texloader.load(orbit.textureLink);
+    console.log(orbit.textureLink);
+
+    const planetGeometry = new THREE.SphereGeometry(orbit.planetRadius, 32, 16); // augmenter
     //const planetGeometry = new THREE.SphereGeometry(20,32,16);
     const planetMaterial = new THREE.MeshBasicMaterial({
-      color: orbit.color,
+      //color: orbit.color,
+      map: planetTexture,
+      
     });
+
+    // ligne à dupliquer pour les materiaux
+
+
+
     const planet = new THREE.Mesh(planetGeometry, planetMaterial);
     planetPoint = { x: circlePoint.x, y: circlePoint.y };
     planetPoint.push;
@@ -299,7 +300,9 @@ ORBITES TRY FOR EACH
 
     whiteCircle.position.set(circlePoint.x, 0, circlePoint.y);
     scene.add(whiteCircle);
+
     whiteCircle.userData.planet = planet;
+
     orbit.sprite = whiteCircle;
     whiteCircles.push(whiteCircle);
 
@@ -319,7 +322,7 @@ ORBITES TRY FOR EACH
 function initControls() {
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enablePan = true;
-  //controls.autoRotate = true;
+ controls.autoRotate = true;
   controls.autoRotateSpeed = true;
   controls.enableDamping = true;
 }
