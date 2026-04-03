@@ -102,6 +102,7 @@ function initRenderer() {
     logarithmicDepthBuffer: true,
   });
   renderer.setSize(viewport.width, viewport.height);
+  renderer.domElement.classList.add("renderer");
 
   document.body.appendChild(renderer.domElement);
 
@@ -357,11 +358,7 @@ function animate() {
     //console.log(baseScale, orbit.nom);
 
     if (orbit.sprite.name === "active"){
-      //console.log(planetPoint);
-      //camera.position.set (targetPlanet.position.x - 10, targetPlanet.position.y , targetPlanet.position.z - 5);
-      //console.log(targetPlanet);
-      //console.log(orbit.nom,"active");
-      //console.log(orbit);
+
       orbit.sprite.scale.set(baseScale * 2, baseScale * 2, 1);
     } else if (orbit.sprite === oldHoverObject){
       orbit.sprite.scale.set(baseScale * 2, baseScale * 2, 1);
