@@ -4,6 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DragControls } from "three/addons/controls/DragControls.js";
+import { texture } from "three/tsl";
 
 //scene
 
@@ -88,8 +89,8 @@ console.log("je clique sur : ", clickedObject)
 clickedObject.name="active";
 
 }else {
-  camera.position.set(0, 20, 20);
-  controls.target.set(0, 0, 0);
+ // camera.position.set(0, 20, 20);
+ //controls.target.set(0, 0, 0);
 
 }
 }
@@ -271,7 +272,9 @@ ORBITES TRY FOR EACH
 
     const texloader = new THREE.TextureLoader();
     const planetTexture = texloader.load(orbit.textureLink);
-    console.log(orbit.textureLink);
+    //console.log(orbit.textureLink);
+    planetTexture.colorSpace = THREE.SRGBColorSpace;
+
 
     const planetGeometry = new THREE.SphereGeometry(orbit.planetRadius, 32, 16); // augmenter
     //const planetGeometry = new THREE.SphereGeometry(20,32,16);
