@@ -118,7 +118,7 @@ function initRenderer() {
   renderer.domElement.classList.add("renderer");
 
   document.body.appendChild(renderer.domElement);
-
+  renderer.setPixelRatio(2);
   renderer.setAnimationLoop(animate);
 }
 
@@ -300,7 +300,7 @@ ORBITES TRY FOR EACH
     const planetMaterial = new THREE.MeshPhysicalMaterial({
       //color: orbit.color,
       map: planetTexture,
-      roughnessMap : planetTextureRoughness ,
+      roughnessMap : planetTextureRoughness,
       // normalmap => fausser des reliefs
       
     });
