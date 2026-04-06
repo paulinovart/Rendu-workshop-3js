@@ -9,7 +9,7 @@ import { roughness, texture } from "three/tsl";
 //scene
 
 const scene = new THREE.Scene();
-
+let buttonVueEnsemble = document.getElementsByClassName("vue-ensemble-button");
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2(1, 1);
 let oldHoverObject = null;
@@ -59,7 +59,14 @@ async function init() {
 
   window.onresize = onWindowResize;
   window.addEventListener("mousemove", onMouseMove);
-  window.addEventListener("click", onClick)
+  window.addEventListener("click", onClick);
+ Array.from(buttonVueEnsemble).forEach((button) => {
+  button.addEventListener("click", () => {
+    console.log("vue d'ensemble");
+    camera.position.set(0, 20, 20);
+    camera.lookAt(0, 0, 0);
+  });
+});
 
 }
 
@@ -78,6 +85,12 @@ function onMouseMove(event) {
     oldHoverObject = hoveredObject;
   }
 }
+
+function clickButtonVueEnsemble(e){
+  camera.position.set(0, 20, 20);
+camera.lookAt(0, 0, 0);
+}
+
 
 
 
