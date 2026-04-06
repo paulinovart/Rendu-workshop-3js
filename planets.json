@@ -1,0 +1,99 @@
+[
+    {
+      "nom":"Mercure",
+      "Distance au Soleil":"46 à 70 millions de km (0,31 à 0,47 UA)",
+      "Masse":"3,3 × 1023 kg",
+      "Diamètre":"4 879 km",
+      "Gravité":"38 % de celle de la Terre",
+      "Inclinaison de l’axe de rotation":"0,01°",
+      "Durée de révolution":"88 jours terrestres",
+      "Durée de rotation":"58,6 jours terrestres",
+      "Température":"-180 °C à +430 °C (+67 °C en moyenne à l’équateur)",
+      "Nombre de lunes connues":0
+    },
+    {
+        "nom":"Vénus",
+        "Distance au Soleil":"107 à 109 millions de km (0,72 UA)",
+        "Masse":"4,87 × 10^24 kg",
+        "Diamètre":"12 104 km",
+        "Gravité":"90 % de celle de la Terre",
+        "Inclinaison de l’axe de rotation":"177°",
+        "Durée de révolution":"225 jours terrestres",
+        "Durée de rotation":"243 jours terrestres",
+        "Température":"+460 °C (moyenne)",
+        "Nombre de lunes connues":0
+      },
+      {
+        "nom":"Terre",
+        "Distance au Soleil":"147 à 152 millions de km (1 UA)",
+        "Masse":"5,97 × 10^24 kg",
+        "Diamètre":"12 756 km",
+        "Gravité":"100 %",
+        "Inclinaison de l’axe de rotation":"23,5°",
+        "Durée de révolution":"365,25 jours",
+        "Durée de rotation":"24 heures",
+        "Température":"-90 °C à +60 °C (15 °C moyenne)",
+        "Nombre de lunes connues":1
+      },
+      {
+        "nom":"Mars",
+        "Distance au Soleil":"207 à 249 millions de km (1,52 UA)",
+        "Masse":"6,42 × 10^23 kg",
+        "Diamètre":"6 779 km",
+        "Gravité":"38 % de celle de la Terre",
+        "Inclinaison de l’axe de rotation":"25°",
+        "Durée de révolution":"687 jours terrestres",
+        "Durée de rotation":"24,6 heures",
+        "Température":"-140 °C à +20 °C",
+        "Nombre de lunes connues":2
+      },
+      {
+        "nom":"Jupiter",
+        "Distance au Soleil":"740 à 816 millions de km (5,2 UA)",
+        "Masse":"1,90 × 10^27 kg",
+        "Diamètre":"142 984 km",
+        "Gravité":"2,5 fois celle de la Terre",
+        "Inclinaison de l’axe de rotation":"3°",
+        "Durée de révolution":"11,86 ans",
+        "Durée de rotation":"9,9 heures",
+        "Température":"-110 °C",
+        "Nombre de lunes connues":95
+      },
+      {
+        "nom":"Saturne",
+        "Distance au Soleil":"1,35 à 1,51 milliard de km (9,5 UA)",
+        "Masse":"5,68 × 10^26 kg",
+        "Diamètre":"120 536 km",
+        "Gravité":"1,07 fois celle de la Terre",
+        "Inclinaison de l’axe de rotation":"27°",
+        "Durée de révolution":"29,5 ans",
+        "Durée de rotation":"10,7 heures",
+        "Température":"-140 °C",
+        "Nombre de lunes connues":146
+      },
+      {
+        "nom":"Uranus",
+        "Distance au Soleil":"2,74 à 3,01 milliards de km (19,2 UA)",
+        "Masse":"8,68 × 10^25 kg",
+        "Diamètre":"51 118 km",
+        "Gravité":"89 % de celle de la Terre",
+        "Inclinaison de l’axe de rotation":"98°",
+        "Durée de révolution":"84 ans",
+        "Durée de rotation":"17 heures",
+        "Température":"-195 °C",
+        "Nombre de lunes connues":27
+      },
+      {
+        "nom":"Neptune",
+        "Distance au Soleil":"4,45 à 4,55 milliards de km (30,1 UA)",
+        "Masse":"1,02 × 10^26 kg",
+        "Diamètre":"49 528 km",
+        "Gravité":"1,14 fois celle de la Terre",
+        "Inclinaison de l’axe de rotation":"28°",
+        "Durée de révolution":"165 ans",
+        "Durée de rotation":"16 heures",
+        "Température":"-200 °C",
+        "Nombre de lunes connues":14
+      }
+
+]
