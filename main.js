@@ -5,6 +5,7 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DragControls } from "three/addons/controls/DragControls.js";
 import { roughness, texture } from "three/tsl";
+import {HDRLoader} from "three/addons/loaders/HDRLoader.js";
 
 //scene
 
@@ -57,8 +58,19 @@ scene.add(light);
 
 
 let cameraPosition = new THREE.Vector3();
-camera.position.set(0, 20, 20);
+camera.position.set(0, 50, 50);
 camera.lookAt(0, 0, 0);
+
+
+
+const hdrLoader = new HDRLoader();
+const envMap = await hdrLoader.loadAsync('textures/galaxie.hdr');
+envMap.mapping = THREE.EquirectangularReflectionMapping;
+
+scene.environment = envMap;
+scene.background = envMap;
+
+
 
 //state
 let controls, renderer, whiteCircle, baseScale,circlePoint, planetPoint;
@@ -78,7 +90,7 @@ async function init() {
  Array.from(buttonVueEnsemble).forEach((button) => {
   button.addEventListener("click", () => {
     console.log("vue d'ensemble");
-    camera.position.set(0, 20, 20);
+    camera.position.set(0, 50, 50);
     camera.lookAt(0, 0, 0);
     infoContainer.classList.add("hidden");
   });
@@ -233,9 +245,11 @@ ORBITES TRY FOR EACH
       y: 1.2,
       color: 0xb78668,
       p: 0.1,
+      nombreAnneaux : 0,
       planetRadius: 0.00005,
       baseColor : "textures/mercury.jpg",
       roughness : "texture/mercury-r.jpg",
+   
 
       DistanceSoleil: "46 à 70 millions de km (0,31 à 0,47 UA)",
       Masse: "3,3 × 1023 kg",
@@ -245,7 +259,8 @@ ORBITES TRY FOR EACH
       DureeRevolution: "88 jours terrestres",
       DureeRotation: "58,6 jours terrestres",
       Temperature: "-180 °C à +430 °C (+67 °C en moyenne à l’équateur)",
-      NombreLunes: "0"
+      NombreLunes: "0",
+  
     },
 
     {
@@ -254,6 +269,7 @@ ORBITES TRY FOR EACH
       y: 2.2,
       color: 0xf4bebe,
       p: 0.2,
+      nombreAnneaux : 0,
       planetRadius: 0.00012,
        baseColor : "textures/venus.jpg",
        roughness : "texture/venus-r.jpg",
@@ -276,6 +292,7 @@ ORBITES TRY FOR EACH
       color: 0x67bc5e,
       p: 0.7,
       planetRadius: 0.00013,
+      nombreAnneaux : 0,
       baseColor : "textures/earth.jpg",
       roughness : "texture/earth-r.jpg",
 
@@ -305,6 +322,7 @@ ORBITES TRY FOR EACH
       planetRadius: 0.00007,
        baseColor : "textures/mars.jpg",
        roughness : "texture/mars-r.jpg",
+       nombreAnneaux : 0,
 
        DistanceSoleil: "207 à 249 millions de km (1,52 UA)",
        Masse: "6,42 × 10^23 kg",
@@ -316,12 +334,15 @@ ORBITES TRY FOR EACH
        Temperature: "-140 °C à +20 °C",
        NombreLunes: "2"
     },
+
+
     {
       nom: "Jupiter",
       x: 15.6,
       y: 15.6,
       color: 0xf9d3c0,
       p: 0.4,
+      nombreAnneaux : 0,
       planetRadius: 0.00143,
        baseColor : "textures/jupiter.jpeg",
 
@@ -340,6 +361,7 @@ ORBITES TRY FOR EACH
       x: 30,
       y: 30,
       color: 0xffe577,
+      nombreAnneaux : 1,
       p: 0.8,
       planetRadius: 0.0012,
        baseColor : "textures/saturn.jpeg",
@@ -360,6 +382,7 @@ ORBITES TRY FOR EACH
       x: 57,
       y: 57,
       color: 0x57a0ff,
+      nombreAnneaux : 0,
       p: 0,
       planetRadius: 0.00051,
        baseColor : "textures/uranus.jpeg",
@@ -379,6 +402,7 @@ ORBITES TRY FOR EACH
       x: 90,
       y: 90,
       color: 0x2948bf,
+      nombreAnneaux : 0,
       p: 0.5,
       planetRadius: 0.00049,
       baseColor : "textures/neptune.jpeg",
@@ -440,6 +464,8 @@ ORBITES TRY FOR EACH
     planetTexture.colorSpace = THREE.SRGBColorSpace;
 
 
+    
+
     const planetGeometry = new THREE.SphereGeometry(orbit.planetRadius, 32, 16); // augmenter
     //const planetGeometry = new THREE.SphereGeometry(20,32,16);
     const planetMaterial = new THREE.MeshPhysicalMaterial({
@@ -452,6 +478,7 @@ ORBITES TRY FOR EACH
 
     // ligne à dupliquer pour les materiaux
 
+    
 
 
     const planet = new THREE.Mesh(planetGeometry, planetMaterial);
@@ -491,7 +518,7 @@ ORBITES TRY FOR EACH
 function initControls() {
   controls = new OrbitControls(camera, renderer.domElement);
   controls.enablePan = true;
- controls.autoRotate = true;
+ //controls.autoRotate = true;
   controls.autoRotateSpeed = true;
   controls.enableDamping = true;
 }
