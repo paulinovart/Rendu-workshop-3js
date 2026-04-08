@@ -80,6 +80,7 @@ async function init() {
     console.log("vue d'ensemble");
     camera.position.set(0, 20, 20);
     camera.lookAt(0, 0, 0);
+    infoContainer.classList.add("hidden");
   });
 });
 
@@ -128,10 +129,10 @@ camera.position.set(clickedObject.position.x,clickedObject.position.y, clickedOb
 controls.target.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z);
 console.log("je clique sur : ", clickedObject);
 clickedObject.name="active";
+infoContainer.classList.remove("hidden");
 
 const orbit = planets.find((o) => o.sprite === clickedObject);
 if (orbit) {
-  console.log(orbit.DureeRevolution);
   nomDiv.innerHTML = orbit.nom;
   masseDiv.innerHTML = orbit.Masse;
   distanceSoleilDiv.innerHTML = orbit.DistanceSoleil;
@@ -151,6 +152,9 @@ if (orbit) {
 }else {
  // camera.position.set(0, 20, 20);
  //controls.target.set(0, 0, 0);
+
+
+
 
 }
 
