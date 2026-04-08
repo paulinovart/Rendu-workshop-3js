@@ -10,6 +10,21 @@ import { roughness, texture } from "three/tsl";
 
 const scene = new THREE.Scene();
 let buttonVueEnsemble = document.getElementsByClassName("vue-ensemble-button");
+let infoContainer = document.querySelector(".infos-container");
+let nomDiv = document.querySelector(".nom-div");
+let masseDiv = document.querySelector(".masse-div");
+let distanceSoleilDiv = document.querySelector(".distance-soleil-div");
+let diametreDiv = document.querySelector(".diametre-div");
+let graviteDiv = document.querySelector(".gravite-div");
+let inclinaisonAxeRotationDiv = document.querySelector(".inclinaison-axe-rotation-div");
+let dureeRevolutionDiv = document.querySelector(".duree-revolution-div");
+let dureeRotationDiv = document.querySelector(".duree-rotation-div");
+let temperatureDiv = document.querySelector(".temperature-div");
+let nombreLunesDiv = document.querySelector(".nombre-lunes-div");
+
+
+nomDiv.innerHTML ="nom de la planete"
+
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2(1, 1);
 let oldHoverObject = null;
@@ -111,14 +126,46 @@ if (intersection.length){
 clickedObject = intersection[0].object
 camera.position.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z+0.003 )
 controls.target.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z);
-console.log("je clique sur : ", clickedObject)
+console.log("je clique sur : ", clickedObject);
 clickedObject.name="active";
+
+const orbit = planets.find((o) => o.sprite === clickedObject);
+if (orbit) {
+  console.log(orbit.DureeRevolution);
+  nomDiv.innerHTML = orbit.nom;
+  masseDiv.innerHTML = orbit.Masse;
+  distanceSoleilDiv.innerHTML = orbit.DistanceSoleil;
+  diametreDiv.innerHTML = orbit.Diametre;
+  graviteDiv.innerHTML = orbit.Gravite;
+  inclinaisonAxeRotationDiv.innerHTML = orbit.InclinaisonAxeRotation;
+  dureeRevolutionDiv.innerHTML = orbit.DureeRevolution;
+  dureeRotationDiv.innerHTML = orbit.DureeRotation;
+  temperatureDiv.innerHTML = orbit.Temperature;
+  nombreLunesDiv.innerHTML = orbit.NombreLunes;
+
+
+
+}
+
 
 }else {
  // camera.position.set(0, 20, 20);
  //controls.target.set(0, 0, 0);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 
@@ -177,7 +224,7 @@ ORBITES TRY FOR EACH
 
   planets = [
     {
-      nom: "Mercury",
+      nom: "Mercure",
       x: 1.2,
       y: 1.2,
       color: 0xb78668,
@@ -185,6 +232,16 @@ ORBITES TRY FOR EACH
       planetRadius: 0.00005,
       baseColor : "textures/mercury.jpg",
       roughness : "texture/mercury-r.jpg",
+
+      DistanceSoleil: "46 à 70 millions de km (0,31 à 0,47 UA)",
+      Masse: "3,3 × 1023 kg",
+      Diametre: "4 879 km",
+      Gravite: "38 % de celle de la Terre",
+      InclinaisonAxeRotation: "0,01°",
+      DureeRevolution: "88 jours terrestres",
+      DureeRotation: "58,6 jours terrestres",
+      Temperature: "-180 °C à +430 °C (+67 °C en moyenne à l’équateur)",
+      NombreLunes: "0"
     },
 
     {
@@ -196,10 +253,20 @@ ORBITES TRY FOR EACH
       planetRadius: 0.00012,
        baseColor : "textures/venus.jpg",
        roughness : "texture/venus-r.jpg",
+    
+       DistanceSoleil: "107 à 109 millions de km (0,72 UA)",
+       Masse: "4,87 × 10^24 kg",
+       Diametre: "12 104 km",
+       Gravite: "90 % de celle de la Terre",
+       InclinaisonAxeRotation: "177°",
+       DureeRevolution: "225 jours terrestres",
+       DureeRotation: "243 jours terrestres",
+       Temperature: "+460 °C (moyenne)",
+       NombreLunes: "0"
     },
 
     {
-      nom: "Earth",
+      nom: "Terre",
       x: 3,
       y: 3,
       color: 0x67bc5e,
@@ -207,6 +274,16 @@ ORBITES TRY FOR EACH
       planetRadius: 0.00013,
       baseColor : "textures/earth.jpg",
       roughness : "texture/earth-r.jpg",
+
+      DistanceSoleil: "147 à 152 millions de km (1 UA)",
+      Masse: "5,97 × 10^24 kg",
+      Diametre: "12 756 km",
+      Gravite: "100 %",
+      InclinaisonAxeRotation: "23,5°",
+      DureeRevolution: "365,25 jours",
+      DureeRotation: "24 heures",
+      Temperature: "-90 °C à +60 °C (15 °C moyenne)",
+      NombreLunes: "1"
     },
 
     /*{
@@ -224,6 +301,16 @@ ORBITES TRY FOR EACH
       planetRadius: 0.00007,
        baseColor : "textures/mars.jpg",
        roughness : "texture/mars-r.jpg",
+
+       DistanceSoleil: "207 à 249 millions de km (1,52 UA)",
+       Masse: "6,42 × 10^23 kg",
+       Diametre: "6 779 km",
+       Gravite: "38 % de celle de la Terre",
+       InclinaisonAxeRotation: "25°",
+       DureeRevolution: "687 jours terrestres",
+       DureeRotation: "24,6 heures",
+       Temperature: "-140 °C à +20 °C",
+       NombreLunes: "2"
     },
     {
       nom: "Jupiter",
@@ -233,15 +320,35 @@ ORBITES TRY FOR EACH
       p: 0.4,
       planetRadius: 0.00143,
        baseColor : "textures/jupiter.jpeg",
+
+       DistanceSoleil: "740 à 816 millions de km (5,2 UA)",
+       Masse: "1,90 × 10^27 kg",
+       Diametre: "142 984 km",
+       Gravite: "2,5 fois celle de la Terre",
+       InclinaisonAxeRotation: "3°",
+       DureeRevolution: "11,86 ans",
+       DureeRotation: "9,9 heures",
+       Temperature: "-110 °C",
+       NombreLunes: "95"
     },
     {
-      nom: "Saturn",
+      nom: "Saturne",
       x: 30,
       y: 30,
       color: 0xffe577,
       p: 0.8,
       planetRadius: 0.0012,
        baseColor : "textures/saturn.jpeg",
+
+       DistanceSoleil: "1,35 à 1,51 milliard de km (9,5 UA)",
+       Masse: "5,68 × 10^26 kg",
+       Diametre: "120 536 km",
+       Gravite: "1,07 fois celle de la Terre",
+       InclinaisonAxeRotation: "27°",
+       DureeRevolution: "29,5 ans",
+       DureeRotation: "10,7 heures",
+       Temperature: "-140 °C",
+       NombreLunes: "146"
 
     },
     {
@@ -252,6 +359,16 @@ ORBITES TRY FOR EACH
       p: 0,
       planetRadius: 0.00051,
        baseColor : "textures/uranus.jpeg",
+
+       DistanceSoleil: "2,74 à 3,01 milliards de km (19,2 UA)",
+       Masse: "8,68 × 10^25 kg",
+       Diametre: "51 118 km",
+       Gravite: "89 % de celle de la Terre",
+       InclinaisonAxeRotation: "98°",
+       DureeRevolution: "84 ans",
+       DureeRotation: "17 heures",
+       Temperature: "-195 °C",
+       NombreLunes: "27"
     },
     {
       nom: "Neptune",
@@ -261,6 +378,17 @@ ORBITES TRY FOR EACH
       p: 0.5,
       planetRadius: 0.00049,
       baseColor : "textures/neptune.jpeg",
+
+      
+      DistanceSoleil: "4,45 à 4,55 milliards de km (30,1 UA)",
+      Masse: "1,02 × 10^26 kg",
+      Diametre: "49 528 km",
+      Gravite: "1,14 fois celle de la Terre",
+      InclinaisonAxeRotation: "28°",
+      DureeRevolution: "165 ans",
+      DureeRotation: "16 heures",
+      Temperature: "-200 °C",
+      NombreLunes: "14"
     },
   ];
 
