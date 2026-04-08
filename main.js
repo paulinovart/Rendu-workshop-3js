@@ -44,13 +44,13 @@ const camera = new THREE.PerspectiveCamera(
   1e27
 );
 const sunLightColor = 0xFFFFFF;
-const sunIntensity = 150;
+const sunIntensity = 100;
 const sunLight = new THREE.PointLight(sunLightColor, sunIntensity);
 scene.add(sunLight);
 
 
 const color = 0xFFFFFF;
-const intensity = 0.5;
+const intensity = 1;
 const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
 
@@ -293,8 +293,9 @@ ORBITES TRY FOR EACH
       p: 0.7,
       planetRadius: 0.00013,
       nombreAnneaux : 0,
-      baseColor : "textures/earth.jpg",
-      roughness : "texture/earth-r.jpg",
+      baseColor : "textures/earth_base_color_hd.jpg",
+      roughness : "texture/2k_earth_specular_map.tif",
+      normalMapImage :"texture/2k_earth_normal_map.tif",
 
       DistanceSoleil: "147 à 152 millions de km (1 UA)",
       Masse: "5,97 × 10^24 kg",
@@ -464,9 +465,11 @@ ORBITES TRY FOR EACH
     const texloader = new THREE.TextureLoader();
     const planetTexture = texloader.load(orbit.baseColor);
     const planetTextureRoughness = texloader.load(orbit.roughness);
+    const planetTextureNormalMap = texloader.load(orbit.normalMapImage);
     //console.log(orbit.baseColor);
     planetTexture.colorSpace = THREE.SRGBColorSpace;
-
+    planetTextureRoughness.colorSpace = THREE.NoColorSpace;
+    planetTexture.roughness = 1;
 
     const ringGeometry = new THREE.TorusGeometry(orbit.planetRadius*1.8,orbit.nombreAnneaux,2,50);
     const ringMaterial = new THREE.MeshPhysicalMaterial({color: orbit.ringColor});
@@ -477,6 +480,7 @@ ORBITES TRY FOR EACH
       //color: orbit.color,
       map: planetTexture,
       roughnessMap : planetTextureRoughness,
+     // normalMap : planetTextureNormalMap,
       // normalmap => fausser des reliefs
       
     });
