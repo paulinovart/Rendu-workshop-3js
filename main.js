@@ -342,9 +342,10 @@ ORBITES TRY FOR EACH
       y: 15.6,
       color: 0xf9d3c0,
       p: 0.4,
-      nombreAnneaux : 0,
+      nombreAnneaux : 0.00002,
       planetRadius: 0.00143,
        baseColor : "textures/jupiter.jpeg",
+       ringColor:0xf9d3c0,
 
        DistanceSoleil: "740 à 816 millions de km (5,2 UA)",
        Masse: "1,90 × 10^27 kg",
@@ -361,10 +362,11 @@ ORBITES TRY FOR EACH
       x: 30,
       y: 30,
       color: 0xffe577,
-      nombreAnneaux : 1,
+      nombreAnneaux : 0.0006,
       p: 0.8,
       planetRadius: 0.0012,
        baseColor : "textures/saturn.jpeg",
+       ringColor:0xdabb9e,
 
        DistanceSoleil: "1,35 à 1,51 milliard de km (9,5 UA)",
        Masse: "5,68 × 10^26 kg",
@@ -382,10 +384,11 @@ ORBITES TRY FOR EACH
       x: 57,
       y: 57,
       color: 0x57a0ff,
-      nombreAnneaux : 0,
+      nombreAnneaux : 0.00002,
       p: 0,
       planetRadius: 0.00051,
        baseColor : "textures/uranus.jpeg",
+       ringColor:0x97c0d6,
 
        DistanceSoleil: "2,74 à 3,01 milliards de km (19,2 UA)",
        Masse: "8,68 × 10^25 kg",
@@ -402,10 +405,11 @@ ORBITES TRY FOR EACH
       x: 90,
       y: 90,
       color: 0x2948bf,
-      nombreAnneaux : 0,
+      nombreAnneaux : 0.00002,
       p: 0.5,
       planetRadius: 0.00049,
       baseColor : "textures/neptune.jpeg",
+      ringColor:0x456afc,
 
       
       DistanceSoleil: "4,45 à 4,55 milliards de km (30,1 UA)",
@@ -464,10 +468,11 @@ ORBITES TRY FOR EACH
     planetTexture.colorSpace = THREE.SRGBColorSpace;
 
 
-    
+    const ringGeometry = new THREE.TorusGeometry(orbit.planetRadius*1.8,orbit.nombreAnneaux,2,50);
+    const ringMaterial = new THREE.MeshPhysicalMaterial({color: orbit.ringColor});
 
-    const planetGeometry = new THREE.SphereGeometry(orbit.planetRadius, 32, 16); // augmenter
-    //const planetGeometry = new THREE.SphereGeometry(20,32,16);
+    const planetGeometry = new THREE.SphereGeometry(orbit.planetRadius, 32, 16);
+
     const planetMaterial = new THREE.MeshPhysicalMaterial({
       //color: orbit.color,
       map: planetTexture,
@@ -480,13 +485,17 @@ ORBITES TRY FOR EACH
 
     
 
-
     const planet = new THREE.Mesh(planetGeometry, planetMaterial);
+    const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+
     planetPoint = { x: circlePoint.x, y: circlePoint.y };
     planetPoint.push;
     console.log(planetPoint, "planetPoint");
+
     planet.position.set(planetPoint.x, 0, planetPoint.y);
-    scene.add(planet);
+    ring.position.set(planetPoint.x, 0, planetPoint.y);
+    ring.rotateX(90);
+    scene.add(planet, ring);
     console.log("planète crée : ", orbit.nom);
 
     //ajout du rond marqueur de l'emplacement de la planete
