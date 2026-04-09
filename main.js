@@ -323,6 +323,7 @@ ORBITES TRY FOR EACH
       planetRadius: 0.00007,
        baseColor : "/textures/mars.jpg",
        roughness : "/texture/mars-r.jpg",
+       normalMapImage :"/texture/mars_normal_map.jpg",
        nombreAnneaux : 0,
 
        DistanceSoleil: "207 à 249 millions de km (1,52 UA)",
