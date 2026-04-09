@@ -1,5 +1,5 @@
 //imports
-import * as THREE from "three";
+import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
