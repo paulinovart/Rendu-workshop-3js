@@ -247,8 +247,8 @@ ORBITES TRY FOR EACH
       p: 0.1,
       nombreAnneaux : 0,
       planetRadius: 0.00005,
-      baseColor : "/textures/mercury.jpg",
-      roughness : "/texture/mercury-r.jpg",
+      baseColor : "/Rendu-workshop-3js/public/textures/mercury.jpg",
+      roughness : "/Rendu-workshop-3js/public/texture/mercury-r.jpg",
    
 
       DistanceSoleil: "46 à 70 millions de km (0,31 à 0,47 UA)",
@@ -271,8 +271,8 @@ ORBITES TRY FOR EACH
       p: 0.2,
       nombreAnneaux : 0,
       planetRadius: 0.00012,
-       baseColor : "/textures/venus.jpg",
-       roughness : "/texture/venus-r.jpg",
+       baseColor : "/Rendu-workshop-3js/public/textures/venus.jpg",
+       roughness : "/Rendu-workshop-3js/public/texture/venus-r.jpg",
     
        DistanceSoleil: "107 à 109 millions de km (0,72 UA)",
        Masse: "4,87 × 10^24 kg",
@@ -293,9 +293,9 @@ ORBITES TRY FOR EACH
       p: 0.7,
       planetRadius: 0.00013,
       nombreAnneaux : 0,
-      baseColor : "/textures/earth_base_color_hd.jpg",
-      roughness : "/texture/2k_earth_specular_map.tif",
-      normalMapImage :"/texture/2k_earth_normal_map.tif",
+      baseColor : "/Rendu-workshop-3js/public/textures/earth_base_color_hd.jpg",
+      roughness : "/Rendu-workshop-3js/public/texture/2k_earth_specular_map.tif",
+      normalMapImage :"/Rendu-workshop-3js/public/texture/2k_earth_normal_map.tif",
 
       DistanceSoleil: "147 à 152 millions de km (1 UA)",
       Masse: "5,97 × 10^24 kg",
@@ -321,9 +321,9 @@ ORBITES TRY FOR EACH
       //color : "linear-gradient(267deg,rgba(221, 69, 48, 0.69) 0%, rgba(221, 69, 48, 0) 100%)",
       p: 1,
       planetRadius: 0.00007,
-       baseColor : "/textures/mars.jpg",
-       roughness : "/texture/mars-r.jpg",
-       normalMapImage :"/texture/mars_normal_map.jpg",
+       baseColor : "/Rendu-workshop-3js/public/textures/mars.jpg",
+       roughness : "/Rendu-workshop-3js/public/texture/mars-r.jpg",
+       normalMapImage :"/Rendu-workshop-3js/public/texture/mars_normal_map.jpg",
        nombreAnneaux : 0,
 
        DistanceSoleil: "207 à 249 millions de km (1,52 UA)",
@@ -346,7 +346,7 @@ ORBITES TRY FOR EACH
       p: 0.4,
       nombreAnneaux : 0.00002,
       planetRadius: 0.00143,
-       baseColor : "/textures/jupiter.jpeg",
+       baseColor : "/Rendu-workshop-3js/public/textures/jupiter.jpeg",
        ringColor:0xf9d3c0,
 
        DistanceSoleil: "740 à 816 millions de km (5,2 UA)",
@@ -367,7 +367,7 @@ ORBITES TRY FOR EACH
       nombreAnneaux : 0.0006,
       p: 0.8,
       planetRadius: 0.0012,
-       baseColor : "/textures/saturn.jpeg",
+       baseColor : "/Rendu-workshop-3js/public/textures/saturn.jpeg",
        ringColor:0xdabb9e,
 
        DistanceSoleil: "1,35 à 1,51 milliard de km (9,5 UA)",
@@ -389,7 +389,7 @@ ORBITES TRY FOR EACH
       nombreAnneaux : 0.00002,
       p: 0,
       planetRadius: 0.00051,
-       baseColor : "/textures/uranus.jpeg",
+       baseColor : "/Rendu-workshop-3js/public/textures/uranus.jpeg",
        ringColor:0x97c0d6,
 
        DistanceSoleil: "2,74 à 3,01 milliards de km (19,2 UA)",
@@ -410,7 +410,7 @@ ORBITES TRY FOR EACH
       nombreAnneaux : 0.00002,
       p: 0.5,
       planetRadius: 0.00049,
-      baseColor : "/textures/neptune.jpeg",
+      baseColor : "/Rendu-workshop-3js/public/textures/neptune.jpeg",
       ringColor:0x456afc,
 
       
@@ -426,7 +426,7 @@ ORBITES TRY FOR EACH
     },
   ];
 
-  const circleTexture = new THREE.TextureLoader().load("/textures/circle.png");
+  const circleTexture = new THREE.TextureLoader().load("/Rendu-workshop-3js/public/textures/circle.png");
   const circleMaterial = new THREE.SpriteMaterial({
     map: circleTexture,
     transparent: true,
