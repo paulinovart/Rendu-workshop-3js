@@ -5,6 +5,7 @@ import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DragControls } from "three/addons/controls/DragControls.js";
 import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
+import { HDRLoader } from 'three/addons/loaders/HDRLoader.js';
 
 //scene
 
