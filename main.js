@@ -63,7 +63,7 @@ camera.lookAt(0, 0, 0);
 
 
 
-const hdrLoader = new HDRLoader();
+const hdrLoader = new RGBELoader(); 
 const envMap = await hdrLoader.loadAsync('/textures/galaxie.hdr');
 envMap.mapping = THREE.EquirectangularReflectionMapping;
 
