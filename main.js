@@ -4,8 +4,7 @@ import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DragControls } from "three/addons/controls/DragControls.js";
-import { roughness, texture } from "three/tsl";
-import {HDRLoader} from "three/addons/loaders/HDRLoader.js";
+import { RGBELoader } from "three/addons/loaders/RGBELoader.js";
 
 //scene
 
