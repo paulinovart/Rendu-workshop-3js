@@ -466,7 +466,7 @@ ORBITES TRY FOR EACH
 
 //ajout du soleil
 
-const sunTexture = new THREE.TextureLoader().load("/Rendu-workshop-3js/public/textures/circle.png")
+const sunTexture = new THREE.TextureLoader().load("/Rendu-workshop-3js/public/textures/sunmap.jpg")
 const sunGeometry = new THREE.SphereGeometry(0.0139 , 32, 16);
 const sunMaterial = new THREE.MeshPhysicalMaterial({
   color: "yellow",
