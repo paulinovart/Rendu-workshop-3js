@@ -135,6 +135,7 @@ tr{
         z-index: 10;
         position: absolute;
         width: 80%;
+        height: 30%;
         color: white;
         border-radius: 30px;
        bottom: 10px;
