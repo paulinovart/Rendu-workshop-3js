@@ -355,6 +355,7 @@ ORBITES TRY FOR EACH
        roughness : "/Rendu-workshop-3js/public/texture/mars-r.jpg",
        normalMapImage :"/Rendu-workshop-3js/public/texture/mars_normal_map.jpg",
        nombreAnneaux : 0,
+       lunesACreer : 2,
 
        DistanceSoleil: "207 à 249 millions de km (1,52 UA)",
        Masse: "6,42 × 10^23 kg",
@@ -378,6 +379,7 @@ ORBITES TRY FOR EACH
       planetRadius: 0.00143,
        baseColor : "/textures/jupiter.jpeg",
        ringColor:0xf9d3c0,
+       lunesACreer : 4,
 
        DistanceSoleil: "740 à 816 millions de km (5,2 UA)",
        Masse: "1,90 × 10^27 kg",
