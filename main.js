@@ -320,34 +320,25 @@ ORBITES TRY FOR EACH
       p: 0.7,
       planetRadius: 0.00013,
       nombreAnneaux : 0,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
+
       baseColor : "/Rendu-workshop-3js/public/textures/earth_base_color_hd.jpg",
       roughness : "/Rendu-workshop-3js/public/texture/2k_earth_specular_map.tif",
       normalMapImage :"/Rendu-workshop-3js/public/texture/2k_earth_normal_map.tif",
       lunesACreer : 1,
-=======
+
       baseColor : "/textures/earth_base_color_hd.jpg",
       roughness : "/texture/2k_earth_specular_map.tif",
       normalMapImage :"/texture/2k_earth_normal_map.tif",
->>>>>>> parent of 76480ee (Update texture paths to use public directory)
-=======
+
+
       baseColor : "/textures/earth_base_color_hd.jpg",
       roughness : "/texture/2k_earth_specular_map.tif",
       normalMapImage :"/texture/2k_earth_normal_map.tif",
->>>>>>> parent of 76480ee (Update texture paths to use public directory)
-=======
+
       baseColor : "/textures/earth_base_color_hd.jpg",
       roughness : "/texture/2k_earth_specular_map.tif",
       normalMapImage :"/texture/2k_earth_normal_map.tif",
->>>>>>> parent of 76480ee (Update texture paths to use public directory)
-=======
-      baseColor : "/textures/earth_base_color_hd.jpg",
-      roughness : "/texture/2k_earth_specular_map.tif",
-      normalMapImage :"/texture/2k_earth_normal_map.tif",
->>>>>>> parent of 76480ee (Update texture paths to use public directory)
+
 
       DistanceSoleil: "147 à 152 millions de km (1 UA)",
       Masse: "5,97 × 10^24 kg",
