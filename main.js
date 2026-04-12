@@ -1,15 +1,16 @@
 //imports
-import * as THREE from './node_modules/three';
-import { OrbitControls } from "./node_modules/three/addons/controls/OrbitControls.js";
-import { DRACOLoader } from "./node_modules/three/addons/loaders/DRACOLoader.js";
-import { GLTFLoader } from "./node_modules/three/addons/loaders/GLTFLoader.js";
-import { DragControls } from "./node_modules/three/addons/controls/DragControls.js";
-import { roughness, texture } from "./node_modules/three/tsl";
-import {HDRLoader} from "./node_modules/three/addons/loaders/HDRLoader.js";
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { DragControls } from "three/addons/controls/DragControls.js";
+import { roughness, texture } from "three/tsl";
+import {HDRLoader} from "three/addons/loaders/HDRLoader.js";
 
 //scene
 
 const scene = new THREE.Scene();
+
 let buttonVueEnsemble = document.getElementsByClassName("vue-ensemble-button");
 let infoContainer = document.querySelector(".infos-container");
 let nomDiv = document.querySelector(".nom-div");
@@ -43,17 +44,17 @@ const camera = new THREE.PerspectiveCamera(
   1e-6,
   1e27
 );
+// simulation de la lumière du soleil
 const sunLightColor = 0xFFFFFF;
 const sunIntensity = 100;
 const sunLight = new THREE.PointLight(sunLightColor, sunIntensity);
 scene.add(sunLight);
 
-
+//lumiere ambiante
 const color = 0xFFFFFF;
 const intensity = 1;
 const light = new THREE.AmbientLight(color, intensity);
 scene.add(light);
-
 
 
 
@@ -77,6 +78,9 @@ let controls, renderer, whiteCircle, baseScale,circlePoint, planetPoint;
 let planets = [];
 let whiteCircles = [];
 let objects = [];
+let flyAnim = null;
+
+
 
 async function init() {
   initRenderer();
@@ -137,15 +141,53 @@ function onClick() {
 
 if (intersection.length){
 clickedObject = intersection[0].object
-camera.position.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z+0.003 )
-controls.target.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z);
+
+
+const destination = clickedObject.position.clone();
+const offset = 0.003; // changer apres pour varier en fonction du rayon de la planete si possible
+flyAnim = {
+
+  startPosition : camera.position.clone(),
+  startTarget : controls.target.clone(),
+  targetPosition : new THREE.Vector3(destination.x + offset, destination.y + offset * 0.5, destination.z + offset),
+  targetCenter : destination.clone(),
+  startTime : performance.now(),
+  duration : 1400,
+  // anim autours de l'orbite
+  orbitAfter : true,
+  orbitStartTime : null,
+  orbitDuration : 1600,
+  orbitRadius : offset ,
+
+}
+
+//camera.position.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z+0.003 )
+//controls.target.set(clickedObject.position.x,clickedObject.position.y, clickedObject.position.z);
+
+
+
+
+
+
 console.log("je clique sur : ", clickedObject);
 clickedObject.name="active";
 infoContainer.classList.remove("hidden");
 
+
+
 const orbit = planets.find((o) => o.sprite === clickedObject);
 if (orbit) {
+
+//ajouter le nom de la planete en grand avant le chargement du reste ?
+
+  setTimeout(() => {
+    infoContainer.classList.remove("hidden");
+  }, 1400);
+
+
   nomDiv.innerHTML = orbit.nom;
+
+
   masseDiv.innerHTML = orbit.Masse;
   distanceSoleilDiv.innerHTML = orbit.DistanceSoleil;
   diametreDiv.innerHTML = orbit.Diametre;
@@ -155,6 +197,7 @@ if (orbit) {
   dureeRotationDiv.innerHTML = orbit.DureeRotation;
   temperatureDiv.innerHTML = orbit.Temperature;
   nombreLunesDiv.innerHTML = orbit.NombreLunes;
+  
 
 
 
@@ -162,24 +205,9 @@ if (orbit) {
 
 
 }else {
- // camera.position.set(0, 20, 20);
- //controls.target.set(0, 0, 0);
-
-
-
+//camera.position.set(20,20);
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
@@ -459,7 +487,7 @@ ORBITES TRY FOR EACH
     const ellipse = new THREE.Line(geometry, material);
     ellipse.rotation.x = -Math.PI / 2;
     scene.add(ellipse);
-    console.log("orbite crée : ", orbit.nom);
+//console.log("orbite créee", orbit.nom);
 
     //création des planetes
 
@@ -579,8 +607,50 @@ function animate() {
   });
 
 
+// animation de transition 
+if (flyAnim){
+  const now = performance.now();
+  const tempsEcoule = now - flyAnim.startTime;
+  const t = Math.min(tempsEcoule / flyAnim.duration, 1);
+  // ease in 
+  const ease = t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+//début de la transition, voler jusqu'a la planete
+if (t < 1) {
+  camera.position.lerpVectors(flyAnim.startPosition, flyAnim.targetPosition, ease);
+ // console.log(flyAnim.startPosition, flyAnim.targetPosition);
+  controls.target.lerpVectors(flyAnim.startTarget, flyAnim.targetCenter, ease);
+
+  // ensuite ça tourne autour
+}else if (flyAnim.orbitAfter){
+
+  if (!flyAnim.orbitStartTime) flyAnim.orbitStartTime = now; 
+  const orbitTempsEcoule = now - flyAnim.orbitStartTime;
+  const orbitT = Math.min(orbitTempsEcoule / flyAnim.orbitDuration, 1);
+  // ralentir
+  const orbitEase = 1 - Math.pow(1 - orbitT, 3);
+  const angle = orbitEase * Math.PI * 2;
+  const r = flyAnim.orbitRadius;
+  const center = flyAnim.targetCenter;
+
+  camera.position.set(
+    center.x + Math.sin(angle) * r,
+    center.y + r * 0.4,
+    center.z + Math.cos(angle) * r
+  );
+  controls.target.copy(center);
+
+  if (orbitT >= 1){
+    flyAnim = null;
+  }}else{
+    flyAnim = null;
+  }
+
+};
+
   controls.update();
   renderer.render(scene, camera);
 }
 
 init();
+
