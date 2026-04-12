@@ -324,6 +324,7 @@ ORBITES TRY FOR EACH
       baseColor : "/Rendu-workshop-3js/public/textures/earth_base_color_hd.jpg",
       roughness : "/Rendu-workshop-3js/public/texture/2k_earth_specular_map.tif",
       normalMapImage :"/Rendu-workshop-3js/public/texture/2k_earth_normal_map.tif",
+      lunesACreer : 1,
 
       DistanceSoleil: "147 à 152 millions de km (1 UA)",
       Masse: "5,97 × 10^24 kg",
