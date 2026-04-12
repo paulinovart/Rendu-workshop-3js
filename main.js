@@ -321,10 +321,16 @@ ORBITES TRY FOR EACH
       planetRadius: 0.00013,
       nombreAnneaux : 0,
 <<<<<<< HEAD
+<<<<<<< HEAD
       baseColor : "/Rendu-workshop-3js/public/textures/earth_base_color_hd.jpg",
       roughness : "/Rendu-workshop-3js/public/texture/2k_earth_specular_map.tif",
       normalMapImage :"/Rendu-workshop-3js/public/texture/2k_earth_normal_map.tif",
       lunesACreer : 1,
+=======
+      baseColor : "/textures/earth_base_color_hd.jpg",
+      roughness : "/texture/2k_earth_specular_map.tif",
+      normalMapImage :"/texture/2k_earth_normal_map.tif",
+>>>>>>> parent of 76480ee (Update texture paths to use public directory)
 =======
       baseColor : "/textures/earth_base_color_hd.jpg",
       roughness : "/texture/2k_earth_specular_map.tif",
