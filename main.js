@@ -464,6 +464,25 @@ ORBITES TRY FOR EACH
     transparent: true,
   });
 
+//ajout du soleil
+
+//const sunTexture = new THREE.TextureLoader().load("")
+const sunGeometry = new THREE.SphereGeometry(0.0139 , 32, 16);
+const sunMaterial = new THREE.MeshPhysicalMaterial({
+  color: "yellow",
+  //map: sunTexture,
+ // roughnessMap : planetTextureRoughness,
+ // normalMap : planetTextureNormalMap,
+  // normalmap => fausser des reliefs
+  
+});
+
+const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+
+scene.add(sun);
+
+
+
   planets.forEach((orbit) => {
     const curve = new THREE.EllipseCurve(
       0,
