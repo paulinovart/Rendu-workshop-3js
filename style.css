@@ -123,7 +123,7 @@ tr{
         width: 80vw;
         color: white;
         border-radius: 30px;
-       top: 60px;
+       bottom: 60px;
        left: 60px;
        border-radius: 10px;
        align-items: center;
